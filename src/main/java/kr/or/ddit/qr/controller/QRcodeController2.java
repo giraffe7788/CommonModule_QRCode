@@ -37,8 +37,8 @@ import javax.crypto.spec.SecretKeySpec;
  * @Description :
  ************/
 @Controller
-@RequestMapping("/qr")
-public class QRcodeController {
+@RequestMapping("/qr2")
+public class QRcodeController2 {
 
 	/*
 	 * 방법1. 구글OTP어플을 이용해 가입시 최초 1회 QR코드를 찍고 OTP로 로그인
