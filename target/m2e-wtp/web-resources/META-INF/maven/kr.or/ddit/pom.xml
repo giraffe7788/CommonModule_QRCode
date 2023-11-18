@@ -140,6 +140,18 @@
 			<version>2.9.5</version>
 		</dependency>
 		
+				<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<!-- 
+			1) 자바빈 클래스(VO)의 getter/setter메소드, toString 자동처리
+			2) log.info() 메소드로 sysout대신 로그를 console에 출력
+		 -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.22</version>
+		    <scope>provided</scope>
+		</dependency>
+		
 	</dependencies>
     <build>
         <plugins>
