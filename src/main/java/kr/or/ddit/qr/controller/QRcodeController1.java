@@ -25,6 +25,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 첫번째 QR 로그인 방법 QR코드 링크 생성하기
@@ -78,8 +80,10 @@ public class QRcodeController1 {
 //	}
 	
 	@ResponseBody
-	@PostMapping(value="/getQRcode", produces="text/plain;charset=UTF-8")
-	public ResponseEntity<byte[]> qrToTistory(@RequestParam String url) throws WriterException, IOException {
+	@PostMapping(value="/getQRcode")
+	public Map <String, Object> qrToTistory(@RequestParam String url) throws WriterException, IOException {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		log.info("url : " + url);
 		
@@ -95,11 +99,12 @@ public class QRcodeController1 {
 	    byte[] imageBytes = out.toByteArray();
 	    String base64Encoded = Base64.getEncoder().encodeToString(imageBytes);
 	    log.info(base64Encoded);
+	    map.put("base64Encoded",base64Encoded);
 	    
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.IMAGE_PNG);
 
-	    return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+	    return map;
 	}
 
 }

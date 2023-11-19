@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
 <title>QR코드 링크 생성기</title>
 </head>
 <body>
@@ -26,15 +25,13 @@ $(function(){
 		
 		$.ajax({
 	        url: '/qr1/getQRcode',
-	        method: 'POST',
+	        type: 'post',
 	        data: data, // 실제 사용하려는 URL로 변경
-	        dataType: 'json',
 	        success: function (data) {
 	        	console.log('성공');
-	        	console.log(data);
+	        	console.log(data.base64Encoded);
 	        	
-	        	$('#qrCodeImage').attr('src', 'data:image/png;base64,');
-// 	        	img.src = 'data:image/png;base64,' + base64String;
+	        	$('#qrCodeImage').attr('src', 'data:image/png;base64,' + data.base64Encoded);
 	        	
 	        },
 	        error: function (error) {
