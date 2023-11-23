@@ -30,6 +30,10 @@ import java.util.Map;
 
 /**
  * 첫번째 QR 로그인 방법 QR코드 링크 생성하기
+ * 1. QR생성시 해당 QR코드를 로컬 폴더에 저장하며
+ * 2. Ajax를 통해 화면의 이동 없이 현재 보고있는 홈페이지의 특정 부분에 $('이미지태그').attr('src', 'data:image/png;base64,' + data.base64Encoded); 같이 src부분을 바꾸면 기존 사진이 qr사진으로 바뀝니다
+ * 또는 동적으로 img태그를 생성 후 append시키면 됩니다
+ * 중요한건 이미지의 src에 base64Encoded를 넣으면 qr이 생성됩니다
  */
 @Slf4j
 @Controller
@@ -40,44 +44,6 @@ public class QRcodeController1 {
 	public String test() {
 		return "qr1/createQRcodeLink";
 	}
-
-//	@PostMapping("/getQRcode")
-//	public ResponseEntity<byte[]> qrToTistory(@RequestParam String url) throws WriterException, IOException {
-//		
-//		int width = 200;
-//		int height = 200;
-//
-//		BitMatrix encode = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, width, height);
-//
-//		// 파일 저장을 위한 객체 생성 
-//		File file = new File("qr저장링크");
-//		FileOutputStream fileOutputStream = new FileOutputStream(file);
-//
-//		try {
-//			ByteArrayOutputStream out = new ByteArrayOutputStream();
-//
-//			MatrixToImageWriter.writeToStream(encode, "PNG", out);
-//
-////			byte[] imageBytes = out.toByteArray();
-////
-////		    HttpHeaders headers = new HttpHeaders();
-////		    headers.setContentType(MediaType.IMAGE_PNG);
-//
-////		    return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
-//
-//			
-//			// 파일 저장부분 
-//			// fileOutputStream.write(out.toByteArray());
-//			return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(out.toByteArray());
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			fileOutputStream.close();
-//		}
-//
-//		return null;
-//	}
 	
 	@ResponseBody
 	@PostMapping(value="/getQRcode")
@@ -85,8 +51,10 @@ public class QRcodeController1 {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
+		// 입력된 url
 		log.info("url : " + url);
 		
+		// qr코드 생성부분
 	    int width = 200;
 	    int height = 200;
 	    
@@ -95,6 +63,11 @@ public class QRcodeController1 {
 	    ByteArrayOutputStream out = new ByteArrayOutputStream();
 	    MatrixToImageWriter.writeToStream(encode, "PNG", out);
 
+	    // 파일 저장 부분
+	    File file = new File("qr저장링크");
+		FileOutputStream fileOutputStream = new FileOutputStream(file);
+		fileOutputStream.write(out.toByteArray());
+	    
 	    // out을 Base64로 인코딩 후 반환
 	    byte[] imageBytes = out.toByteArray();
 	    String base64Encoded = Base64.getEncoder().encodeToString(imageBytes);
@@ -106,5 +79,4 @@ public class QRcodeController1 {
 
 	    return map;
 	}
-
 }

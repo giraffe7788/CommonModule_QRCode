@@ -6,6 +6,7 @@
 <title>QR코드 링크 생성기</title>
 </head>
 <body>
+<p>QR화 시키고 싶은 링크를 입력 후 버튼을 누르면 해당 링크로 QR코드가 생성됩니다</p>
 <form action="/qr1/getQRcode" method="post">
 	<input type="text" name="url" id="url" placeholder="접속하고싶은 url">
 	<br><br>
