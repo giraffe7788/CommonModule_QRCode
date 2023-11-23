@@ -27,7 +27,7 @@ $(function(){
 		$.ajax({
 	        url: '/qr1/getQRcode',
 	        type: 'post',
-	        data: data, // 실제 사용하려는 URL로 변경
+	        data: data,
 	        success: function (data) {
 	        	console.log('성공');
 	        	console.log(data.base64Encoded);
