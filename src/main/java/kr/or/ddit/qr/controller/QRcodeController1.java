@@ -73,9 +73,6 @@ public class QRcodeController1 {
 	    String base64Encoded = Base64.getEncoder().encodeToString(imageBytes);
 	    log.info(base64Encoded);
 	    map.put("base64Encoded",base64Encoded);
-	    
-	    HttpHeaders headers = new HttpHeaders();
-	    headers.setContentType(MediaType.IMAGE_PNG);
 
 	    return map;
 	}
